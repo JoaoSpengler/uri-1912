@@ -6,131 +6,87 @@ using System.Threading.Tasks;
 
 namespace Uri1912
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			while(true)
-			{
-				string primeiraLinha = Console.ReadLine();
-				string[] primeirasVariaveis = primeiraLinha.Split(' ');
-                int valorArea = Convert.ToInt32(primeirasVariaveis[1]);
-                int numTiras = Convert.ToInt32(primeirasVariaveis[0]);
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                string firstLine = Console.ReadLine();
+                string[] firstVariable = firstLine.Split(' ');
+                long valorArea = Convert.ToInt64(firstVariable[1]);
+                long numberStrips = Convert.ToInt64(firstVariable[0]);
 
-                if (numTiras != 0 && valorArea != 0)
-				{
-					string segundaLinha = Console.ReadLine();
-					string[] segundaVariavel = segundaLinha.Split(' ');
-					//logica de corte
-					int somaTiras = 0;
+                if (numberStrips == 0 && valorArea == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    string secondLine = Console.ReadLine();
+                    string[] secondVariable = secondLine.Split(' ');
+                    List<string> paperStrips = new List<string>();
+                    paperStrips.AddRange(secondVariable);
+                    List<long> paperRange = paperStrips.ConvertAll<long>(long.Parse);
 
-                    for (int i = 0 ; i < numTiras ; i++)
-					{
-						somaTiras += Convert.ToInt32(segundaVariavel[i]);
-					}
-					if (somaTiras == valorArea) 
-					{
-						Console.WriteLine(":D"); 
-					}
-					else if (somaTiras < valorArea)
-					{
-						Console.WriteLine("-.-");
-					}
-					else
-					{
-                        //pode cortar
-                        //logica do maior
-                        int maior = 0;
-                        int numMaior = 0;
-                        int area = 0;
-                        int alturaCorte = 0;
-                        bool alturaQuebrada = false;
-                        double maiorQuebrado = 0;
+                    paperRange.Sort();
+                    paperRange.Reverse();
 
-                        //int posicaoIguais[] = new int;
-                        int iguais = 0;
-                        while (valorArea > area)
-                        {
-                            for (int i = 0; i < numTiras ; i++)
-                            {
-                                if (i == 0)
-                                {
-                                    maior = Convert.ToInt32(segundaVariavel[i]);
-                                    numMaior = i;
-                                    iguais = 1;
-                                }
-                                else if (Convert.ToInt32(segundaVariavel[i]) > maior)
-                                {
-                                    maior = Convert.ToInt32(segundaVariavel[i]);
-                                    numMaior = i;
-                                    iguais = 1;
-                                }
-                                else if (Convert.ToInt32(segundaVariavel[i]) == maior)
-                                {
-                                    iguais += 1;
-                                }
-                            }
-                            if (iguais > valorArea)
-                            {
-                                //logica dos quebrados
-                                int areaRestante = valorArea - area;
-                                int restoCorte = iguais - areaRestante;
-                                double numTirasDouble = Convert.ToDouble(numTiras);
-                                double restoDouble = Convert.ToDouble(restoCorte);
-                                double tirasQuebradas = restoDouble / numTirasDouble;
-                                string valorQuebrado = Convert.ToString(maior - tirasQuebradas);
+                    long expectedArea = 0;
+                    long totalArea = paperRange.Sum();
+                    long maxStrip = 0;
+                    double cutHere = 0;
 
-                                for (int i = 0; i < numTiras; i++)
-                                {
-                                    if (maior == Convert.ToInt32(segundaVariavel[i]))
-                                    {
-                                        segundaVariavel[i] = valorQuebrado;
-                                    }
-                                }
-                                area += iguais ;
-                                alturaQuebrada = true;
-                                maiorQuebrado = Convert.ToDouble(valorQuebrado);
-                                //break;
-                            }
-                            else if (iguais == valorArea)
-                            {
-                                string novoValor = Convert.ToString(maior - 1);
-                                for (int i = 0; i < numTiras; i++)
-                                {
-                                    if (maior == Convert.ToInt32(segundaVariavel[i]))
-                                    {
-                                        segundaVariavel[i] = novoValor;
-                                    }
-                                }
-                                area += iguais;
-                                maior -= 1;
-                            }
-                            else
-                            {
-                                string novoValor = Convert.ToString(maior - 1);
-                                segundaVariavel[numMaior] = novoValor;
-                                maior -= 1;
-                                area += 1;
-                            }
-                        }
-                        if(alturaQuebrada == false)
-                        {
-                            alturaCorte = maior;
-                            Console.WriteLine("A altura do corte é: {0} cm", alturaCorte);
-                        }
-                        else
-                        {
-                            string alturaCorteQuebrada = String.Format( "{0:N4}", maiorQuebrado);
-                            Console.WriteLine("A altura do corte é: {0} cm", alturaCorteQuebrada);
-                        }
+
+                    if (totalArea < valorArea)
+                    {
+                        Console.WriteLine("-.-");
                     }
-				}
-				else
-				{
-					//se N = A = 0
-					break;
-				}
-			}
-		}
-	}
+                    else if (totalArea == valorArea)
+                    {
+                        Console.WriteLine(":D");
+                    }
+                    else
+                    {
+                        while (expectedArea < valorArea)
+                        {
+                            long rest = 0;
+                            double test = 0;
+                            long needCut = 0;
+                            long equalsStrips = 0;
+                            for (int strip = 0; strip < paperRange.Count; strip++)
+                            {
+
+                                if (strip == 0)
+                                {
+                                    equalsStrips += 1;
+                                    maxStrip = paperRange[0];
+                                    paperRange[strip] = (maxStrip - 1);
+                                }
+                                else if (paperRange[strip] == maxStrip)
+                                {
+                                    equalsStrips += 1;
+                                    paperRange[strip] = (maxStrip - 1);
+                                }
+                            }
+                            expectedArea += equalsStrips;
+                            if (expectedArea > valorArea)
+                            {
+                                rest = expectedArea - valorArea;
+                                needCut = (totalArea - rest);
+                                test = (totalArea - needCut);
+                                double equalsCut = Convert.ToDouble(equalsStrips);
+                                cutHere = (test / equalsCut);
+                                maxStrip = paperRange[0];
+                            }
+                            maxStrip = paperRange[0];
+
+                        }
+                        string finalCut = String.Format("{0:N4}", maxStrip + cutHere);
+                        Console.WriteLine("{0}", finalCut);
+                    }
+                }
+            }
+        }
+    }
 }

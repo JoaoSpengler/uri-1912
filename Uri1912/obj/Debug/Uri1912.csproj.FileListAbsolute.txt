@@ -5,3 +5,10 @@ C:\Users\joao.spengler\Desktop\Uri\Uri1912\obj\Debug\Uri1912.csprojAssemblyRefer
 C:\Users\joao.spengler\Desktop\Uri\Uri1912\obj\Debug\Uri1912.csproj.CoreCompileInputs.cache
 C:\Users\joao.spengler\Desktop\Uri\Uri1912\obj\Debug\Uri1912.exe
 C:\Users\joao.spengler\Desktop\Uri\Uri1912\obj\Debug\Uri1912.pdb
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\obj\Debug\Uri1912.csprojAssemblyReference.cache
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\obj\Debug\Uri1912.csproj.CoreCompileInputs.cache
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\obj\Debug\Uri1912.exe
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\obj\Debug\Uri1912.pdb
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\bin\Debug\Uri1912.exe.config
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\bin\Debug\Uri1912.exe
+C:\Users\joao.spengler\Desktop\uri-1912\Uri1912\bin\Debug\Uri1912.pdb
